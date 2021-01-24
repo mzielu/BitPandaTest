@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bitpanda.developertest.databinding.CryptoItemBinding
-import com.bitpanda.developertest.databinding.FiatItemBinding
-import com.bitpanda.developertest.databinding.MetalItemBinding
+import com.bitpanda.developertest.databinding.ItemCryptocoinBinding
+import com.bitpanda.developertest.databinding.ItemFiatBinding
+import com.bitpanda.developertest.databinding.ItemMetalBinding
 import com.bitpanda.developertest.model.Resource
 import com.bitpanda.developertest.model.Wallet
-import java.lang.IllegalArgumentException
 
 class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCallback()) {
 
@@ -39,7 +38,7 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
         }
     }
 
-    class MetalHolder private constructor(val binding: MetalItemBinding) :
+    class MetalHolder private constructor(val binding: ItemMetalBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Resource.Metal) {
@@ -50,13 +49,13 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
         companion object {
             fun from(parent: ViewGroup): MetalHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = MetalItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemMetalBinding.inflate(layoutInflater, parent, false)
                 return MetalHolder(binding)
             }
         }
     }
 
-    class CryptoHolder private constructor(val binding: CryptoItemBinding) :
+    class CryptoHolder private constructor(val binding: ItemCryptocoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Resource.Cryptocoin) {
@@ -67,13 +66,13 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
         companion object {
             fun from(parent: ViewGroup): CryptoHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = CryptoItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemCryptocoinBinding.inflate(layoutInflater, parent, false)
                 return CryptoHolder(binding)
             }
         }
     }
 
-    class FiatHolder private constructor(val binding: FiatItemBinding) :
+    class FiatHolder private constructor(val binding: ItemFiatBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Resource.Fiat) {
@@ -84,7 +83,7 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
         companion object {
             fun from(parent: ViewGroup): FiatHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = FiatItemBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemFiatBinding.inflate(layoutInflater, parent, false)
                 return FiatHolder(binding)
             }
         }

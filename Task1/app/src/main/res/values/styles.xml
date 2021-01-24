@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FilterItem">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/selector_filter</item>
+        <item name="android:minWidth">@dimen/filter_item_min_width</item>
+        <item name="android:padding">@dimen/margin_half</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

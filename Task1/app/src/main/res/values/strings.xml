@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Task1</string>
+    <string name="filter_all">All</string>
+    <string name="filter_fiat">Fiat</string>
+    <string name="filter_metal">Metal</string>
+    <string name="filter_cryptocoin">Cryptocoin</string>
 </resources>
