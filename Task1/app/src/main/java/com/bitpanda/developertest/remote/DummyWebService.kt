@@ -1,35 +1,39 @@
 package com.bitpanda.developertest.remote
 
-import com.bitpanda.developertest.model.*
+import com.bitpanda.developertest.model.dto.ResourceDto
+import com.bitpanda.developertest.model.dto.WalletDto
+import com.bitpanda.developertest.remote.DummyData.Companion.cryptocoinWallets
+import com.bitpanda.developertest.remote.DummyData.Companion.cryptocoins
+import com.bitpanda.developertest.remote.DummyData.Companion.fiatWallets
+import com.bitpanda.developertest.remote.DummyData.Companion.fiats
+import com.bitpanda.developertest.remote.DummyData.Companion.metalWallets
+import com.bitpanda.developertest.remote.DummyData.Companion.metals
+import javax.inject.Inject
 
-class DummyWebService {
+interface WebService {
+    fun getCryptoWallets(): List<WalletDto>
 
-    fun getCryptoWallets(): List<CryptocoinWallet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getMetalWallets(): List<WalletDto>
 
-    fun getMetalWallets(): List<MetalWallet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getFiatWallets(): List<WalletDto>
 
-    fun getFiatWallets(): List<FiatWallet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getCryptocoins(): List<ResourceDto>
 
-    fun getCryptocoins(): List<Cryptocoin> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getMetals(): List<ResourceDto>
 
-    fun getMetals(): List<Metal> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getFiats(): List<ResourceDto>
+}
 
-    fun getFiats(): List<Fiat> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class DummyWebService @Inject constructor() : WebService {
+    override fun getCryptoWallets() = cryptocoinWallets
 
-//    fun getCurrencies(): List<IMPLEMENT_ME> {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
+    override fun getMetalWallets() = metalWallets
 
+    override fun getFiatWallets() = fiatWallets
+
+    override fun getCryptocoins() = cryptocoins
+
+    override fun getMetals() = metals
+
+    override fun getFiats() = fiats
 }
