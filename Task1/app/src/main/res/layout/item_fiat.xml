@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_700">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainLayout"
@@ -24,13 +23,23 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/skill_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{fiat.name}"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/fiatIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:imageUrl="@{fiat.logo}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fiatName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{fiat.name}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fiatIcon"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Android SDK" />
 

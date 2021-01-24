@@ -70,4 +70,7 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+
+    //glide
+    implementation "com.github.corouteam:GlideToVectorYou:$glideToVector"
 }
