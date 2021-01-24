@@ -1,0 +1,10 @@
+ext {
+    rxjava = '2.2.18'
+    rxandroid = '2.1.1'
+    rxkotlin = '2.4.0'
+    navigation = '2.3.2'
+    timber = '4.7.1'
+    dagger_hilt = '1.0.0-alpha02'
+    hilt = '2.28-alpha'
+    leakcanary = '2.6'
+}
