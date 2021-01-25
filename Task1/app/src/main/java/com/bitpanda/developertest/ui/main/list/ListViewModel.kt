@@ -10,7 +10,8 @@ import com.bitpanda.developertest.model.Wallet
 import com.bitpanda.developertest.repository.Repository
 
 class ListViewModel @ViewModelInject constructor(
-    private val repository: Repository
+    private val repository: Repository,
+    private val listNavigator: ListNavigator,
 ) : BaseViewModel() {
 
     private var walletsListMutable = MutableLiveData<List<Wallet>>(emptyList())
@@ -24,6 +25,10 @@ class ListViewModel @ViewModelInject constructor(
             FilterType.FIAT -> getNotDeletedWallets(ResourceType.FIAT)
             FilterType.CRYPTO -> getNotDeletedWallets(ResourceType.CRYPTOCOIN)
         }
+    }
+
+    val walletClickAction: (Wallet) -> Unit = {
+        listNavigator.goToWalletDetails(it)
     }
 
     private fun getNotDeletedWallets(vararg types: ResourceType): List<Wallet> {

@@ -28,6 +28,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel, FragmentDetailsBinding>()
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         binding?.viewModel = detailsViewModel
         binding?.lifecycleOwner = this
+
         return binding?.root
     }
 }

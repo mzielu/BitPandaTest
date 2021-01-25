@@ -5,24 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bitpanda.developertest.databinding.ItemCryptocoinBinding
 
-class CryptocoinHolder private constructor(val binding: ItemCryptocoinBinding) :
+class CryptocoinWalletHolder private constructor(val binding: ItemCryptocoinBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(cryptocoin: CryptocoinDisplayable) {
+    fun bind(cryptocoin: CryptocoinWalletDisplayable, walletClickAction: () -> Unit) {
         binding.cryptocoin = cryptocoin
+        binding.root.setOnClickListener {
+            walletClickAction()
+        }
         binding.executePendingBindings()
     }
 
     companion object {
-        fun from(parent: ViewGroup): CryptocoinHolder {
+        fun from(parent: ViewGroup): CryptocoinWalletHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemCryptocoinBinding.inflate(layoutInflater, parent, false)
-            return CryptocoinHolder(binding)
+            return CryptocoinWalletHolder(binding)
         }
     }
 }
 
-data class CryptocoinDisplayable(
+data class CryptocoinWalletDisplayable(
     val name: String,
     val symbol: String,
     val balance: String,

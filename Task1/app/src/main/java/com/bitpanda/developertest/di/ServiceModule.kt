@@ -1,7 +1,7 @@
 package com.bitpanda.developertest.di
 
-import com.bitpanda.developertest.repository.Repository
-import com.bitpanda.developertest.repository.RepositoryImpl
+import com.bitpanda.developertest.remote.DummyWebService
+import com.bitpanda.developertest.remote.WebService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,9 +10,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class RepositoryModule {
+abstract class ServiceModule {
 
     @Binds
     @Singleton
-    abstract fun bindRepository(impl: RepositoryImpl): Repository
+    abstract fun bindWebService(impl: DummyWebService): WebService
 }

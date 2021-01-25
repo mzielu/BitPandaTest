@@ -7,7 +7,7 @@
 
         <variable
             name="cryptocoin"
-            type="com.bitpanda.developertest.ui.main.list.adapter.CryptocoinDisplayable" />
+            type="com.bitpanda.developertest.ui.main.list.adapter.CryptocoinWalletDisplayable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

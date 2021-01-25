@@ -36,8 +36,7 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>() {
     }
 
     private fun prepareAdapter() {
-        val adapter = WalletsAdapter()
-
+        val adapter = WalletsAdapter(viewModel.walletClickAction)
         binding?.walletsView?.adapter = adapter
         viewModel.wallets.observe(viewLifecycleOwner) {
             adapter.submitList(it)

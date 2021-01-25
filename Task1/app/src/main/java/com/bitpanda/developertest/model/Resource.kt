@@ -1,12 +1,17 @@
 package com.bitpanda.developertest.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+
 sealed class Resource(
     open val id: String,
     open val name: String,
     open val symbol: String,
     open val logo: String,
     open val precision: Int,
-) {
+) : Parcelable {
+    @Parcelize
     data class Fiat(
         override val id: String,
         override val name: String,
@@ -15,6 +20,7 @@ sealed class Resource(
         override val precision: Int = DEFAULT_FIAT_PRECISION
     ) : Resource(id, name, symbol, logo, precision)
 
+    @Parcelize
     data class Metal(
         override val id: String,
         override val name: String,
@@ -24,6 +30,7 @@ sealed class Resource(
         val price: Double
     ) : Resource(id, name, symbol, logo, precision)
 
+    @Parcelize
     data class Cryptocoin(
         override val id: String,
         override val name: String,

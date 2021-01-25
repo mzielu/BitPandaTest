@@ -7,7 +7,7 @@
 
         <variable
             name="metal"
-            type="com.bitpanda.developertest.ui.main.list.adapter.MetalDisplayable" />
+            type="com.bitpanda.developertest.ui.main.list.adapter.MetalWalletDisplayable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

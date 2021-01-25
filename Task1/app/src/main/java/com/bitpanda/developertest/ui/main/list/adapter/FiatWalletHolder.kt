@@ -5,24 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bitpanda.developertest.databinding.ItemFiatBinding
 
-class FiatHolder private constructor(val binding: ItemFiatBinding) :
+class FiatWalletHolder private constructor(val binding: ItemFiatBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(fiat: FiatDisplayable) {
+    fun bind(fiat: FiatWalletDisplayable, walletClickAction: () -> Unit) {
         binding.fiat = fiat
+        binding.root.setOnClickListener {
+            walletClickAction()
+        }
         binding.executePendingBindings()
     }
 
     companion object {
-        fun from(parent: ViewGroup): FiatHolder {
+        fun from(parent: ViewGroup): FiatWalletHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemFiatBinding.inflate(layoutInflater, parent, false)
-            return FiatHolder(binding)
+            return FiatWalletHolder(binding)
         }
     }
 }
 
-data class FiatDisplayable(
+data class FiatWalletDisplayable(
     val name: String,
     val balance: Double,
     val logo: String
