@@ -14,10 +14,11 @@ import com.bitpanda.developertest.model.Wallet
 class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCallback()) {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val item = getItem(position).resource) {
-            is Resource.Metal -> (holder as MetalHolder).bind(item)
-            is Resource.Cryptocoin -> (holder as CryptoHolder).bind(item)
-            is Resource.Fiat -> (holder as FiatHolder).bind(item)
+        val item = getItem(position)
+        when (item.resource) {
+            is Resource.Metal -> (holder as MetalHolder).bind(item.resource, item.balance)
+            is Resource.Cryptocoin -> (holder as CryptoHolder).bind(item.resource, item.balance)
+            is Resource.Fiat -> (holder as FiatHolder).bind(item.resource, item.balance)
         }
     }
 
@@ -41,8 +42,9 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
     class MetalHolder private constructor(val binding: ItemMetalBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Resource.Metal) {
-            binding.metal = item
+        fun bind(metal: Resource.Metal, balance: Double) {
+            binding.metal = metal
+            binding.balance = balance
             binding.executePendingBindings()
         }
 
@@ -58,8 +60,9 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
     class CryptoHolder private constructor(val binding: ItemCryptocoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Resource.Cryptocoin) {
-            binding.cryptocoin = item
+        fun bind(cryptocoin: Resource.Cryptocoin, balance: Double) {
+            binding.cryptocoin = cryptocoin
+            binding.balance = balance
             binding.executePendingBindings()
         }
 
@@ -75,8 +78,9 @@ class WalletsAdapter : ListAdapter<Wallet, RecyclerView.ViewHolder>(WalletDiffCa
     class FiatHolder private constructor(val binding: ItemFiatBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Resource.Fiat) {
-            binding.fiat = item
+        fun bind(fiat: Resource.Fiat, balance: Double) {
+            binding.fiat = fiat
+            binding.balance = balance
             binding.executePendingBindings()
         }
 

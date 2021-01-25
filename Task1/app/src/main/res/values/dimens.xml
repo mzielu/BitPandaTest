@@ -3,5 +3,12 @@
     <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_small">4dp</dimen>
 
+    <dimen name="text_normal">14sp</dimen>
+    <dimen name="text_big">18sp</dimen>
+
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_min_height">100dp</dimen>
+    <dimen name="card_logo_size">30dp</dimen>
+
     <dimen name="filter_item_min_width">75dp</dimen>
 </resources>

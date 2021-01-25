@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="balance"
+            type="Double" />
+
+        <variable
             name="fiat"
             type="com.bitpanda.developertest.model.Resource.Fiat" />
     </data>
@@ -14,44 +18,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainLayout"
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_height="match_parent"
+            android:minHeight="@dimen/card_min_height"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/fiatIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                app:imageUrl="@{fiat.logo}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/fiatName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:text="@{fiat.name}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/fiatIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Android SDK" />
+                android:layout_gravity="center">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/metalLogo"
+                    android:layout_width="@dimen/card_logo_size"
+                    android:layout_height="@dimen/card_logo_size"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    app:imageUrl="@{fiat.logo}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Android SDK" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@color/purple_700"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainLayout" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/metalName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:text="@{fiat.name}"
+                    android:textSize="@dimen/text_big"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/metalLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Dolar" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/metalBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="@{balance + ` g`}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="123 $" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
