@@ -23,7 +23,6 @@ class ListViewModel @ViewModelInject constructor(
             FilterType.METAL -> getNotDeletedWallets(ResourceType.METAL)
             FilterType.FIAT -> getNotDeletedWallets(ResourceType.FIAT)
             FilterType.CRYPTO -> getNotDeletedWallets(ResourceType.CRYPTOCOIN)
-
         }
     }
 

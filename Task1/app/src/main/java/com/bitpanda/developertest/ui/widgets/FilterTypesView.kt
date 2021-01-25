@@ -11,14 +11,15 @@ import com.bitpanda.developertest.model.FilterType
 import kotlinx.android.synthetic.main.view_filter_types.view.*
 import timber.log.Timber
 
+typealias TypeWithView = Pair<FilterType, View>
 
 class FilterTypesView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    private var filterViews: MutableList<View> = mutableListOf()
-    private lateinit var selectedView: View
+    private var typesWithViews: MutableList<TypeWithView> = mutableListOf()
+    private var selectedType: FilterType? = null
 
     private var filterChangeAction: (FilterType) -> Unit = { }
 
@@ -34,39 +35,46 @@ class FilterTypesView @JvmOverloads constructor(
         val view = View.inflate(context, R.layout.view_filter_types, null)
         addView(view)
 
-        filterViews.addAll(listOf(allView, metalView, cryptoView, fiatView))
+        typesWithViews.apply {
+            add(FilterType.ALL to allView)
+            add(FilterType.METAL to metalView)
+            add(FilterType.CRYPTO to cryptoView)
+            add(FilterType.FIAT to fiatView)
+        }
 
-        allView.configureFilterItemClick(FilterType.ALL)
-        metalView.configureFilterItemClick(FilterType.METAL)
-        cryptoView.configureFilterItemClick(FilterType.CRYPTO)
-        fiatView.configureFilterItemClick(FilterType.FIAT)
+        typesWithViews.forEach {
+            it.second.configureFilterItemClick(it.first)
+        }
     }
 
     private fun View.configureFilterItemClick(filterType: FilterType) {
         setOnClickListener { clickedView ->
-            if (::selectedView.isInitialized && selectedView == clickedView) {
+            if (selectedType != null && selectedType == filterType) {
                 Timber.d("Item already selected")
             } else {
                 Timber.d("Selecting new item")
-                clickedView.selectView()
+                selectedType = filterType
+                clickedView.selectViewAndUnselectOthers()
                 filterChangeAction(filterType)
             }
         }
     }
 
-    private fun View.selectView() {
-        selectedView = this
+    private fun View.selectViewAndUnselectOthers() {
         isSelected = true
-        filterViews.filter { it != this }.forEach { iteratedView ->
-            iteratedView.isSelected = false
+        typesWithViews.filter { it.first != selectedType }.forEach { item ->
+            item.second.isSelected = false
         }
+    }
+
+    private fun getViewByType(filterType: FilterType): View? {
+        return typesWithViews.firstOrNull { it.first == filterType }?.second
     }
 
     public override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()
         return if (superState != null) {
-            val savedState = SavedState(superState, selectedView.id)
-            savedState
+            selectedType?.let { SavedState(superState, it) } ?: superState
         } else {
             superState
         }
@@ -75,16 +83,17 @@ class FilterTypesView @JvmOverloads constructor(
     public override fun onRestoreInstanceState(state: Parcelable) {
         if (state is SavedState) {
             super.onRestoreInstanceState(state.superState)
-            findViewById<View>(state.selectedViewId).selectView()
+            getViewByType(state.filterType)?.selectViewAndUnselectOthers()
         } else {
             super.onRestoreInstanceState(state)
         }
     }
 
-    class SavedState(superState: Parcelable, val selectedViewId: Int) : BaseSavedState(superState) {
+    class SavedState(superState: Parcelable, val filterType: FilterType) :
+        BaseSavedState(superState) {
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
-            out.writeInt(selectedViewId)
+            out.writeSerializable(filterType)
         }
     }
 }

@@ -8,4 +8,5 @@ ext {
     hilt = '2.28-alpha'
     leakcanary = '2.6'
     glidetovector = 'v2.0.0'
+    mockito = '2.2.0'
 }
