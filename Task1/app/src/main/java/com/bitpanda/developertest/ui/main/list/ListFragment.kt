@@ -5,14 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bitpanda.developertest.base.BaseFragment
 import com.bitpanda.developertest.databinding.FragmentListBinding
-import com.bitpanda.developertest.model.mapper.ResourceMapper
-import com.bitpanda.developertest.model.mapper.WalletMapper
-import com.bitpanda.developertest.remote.DummyWebService
-import com.bitpanda.developertest.repository.Repository
-import com.bitpanda.developertest.repository.RepositoryImpl
+import com.bitpanda.developertest.ui.main.list.adapter.WalletsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

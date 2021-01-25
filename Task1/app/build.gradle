@@ -61,8 +61,8 @@ dependencies {
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt"
     kapt "com.google.dagger:hilt-android-compiler:$hilt"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$dagger_hilt"
-    kapt "androidx.hilt:hilt-compiler:$dagger_hilt"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$daggerhilt"
+    kapt "androidx.hilt:hilt-compiler:$daggerhilt"
 
     //timber
     implementation "com.jakewharton.timber:timber:$timber"
@@ -72,5 +72,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
     //glide
-    implementation "com.github.corouteam:GlideToVectorYou:$glideToVector"
+    implementation "com.github.corouteam:GlideToVectorYou:$glidetovector"
+
+    //leakcanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary"
 }

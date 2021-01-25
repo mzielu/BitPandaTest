@@ -8,7 +8,6 @@ import com.bitpanda.developertest.model.FilterType
 import com.bitpanda.developertest.model.ResourceType
 import com.bitpanda.developertest.model.Wallet
 import com.bitpanda.developertest.repository.Repository
-import timber.log.Timber
 
 class ListViewModel @ViewModelInject constructor(
     private val repository: Repository
@@ -19,21 +18,16 @@ class ListViewModel @ViewModelInject constructor(
         get() = walletsListMutable
 
     val filterChangeAction: (FilterType) -> Unit = { filterType ->
-        Timber.d("New filter: $filterType")
+        walletsListMutable.value = when (filterType) {
+            FilterType.ALL -> getNotDeletedWallets(*ResourceType.values())
+            FilterType.METAL -> getNotDeletedWallets(ResourceType.METAL)
+            FilterType.FIAT -> getNotDeletedWallets(ResourceType.FIAT)
+            FilterType.CRYPTO -> getNotDeletedWallets(ResourceType.CRYPTOCOIN)
 
-        when (filterType) {
-            FilterType.ALL -> {
-                walletsListMutable.value = repository.getWallets(*ResourceType.values())
-            }
-            FilterType.METAL -> {
-                walletsListMutable.value = repository.getWallets(ResourceType.METAL)
-            }
-            FilterType.FIAT -> {
-                walletsListMutable.value = repository.getWallets(ResourceType.FIAT)
-            }
-            FilterType.CRYPTO -> {
-                walletsListMutable.value = repository.getWallets(ResourceType.CRYPTOCOIN)
-            }
         }
+    }
+
+    private fun getNotDeletedWallets(vararg types: ResourceType): List<Wallet> {
+        return repository.getWallets(*types).filter { !it.deleted }
     }
 }

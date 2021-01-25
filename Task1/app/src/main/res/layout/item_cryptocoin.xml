@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="balance"
-            type="Double" />
-
-        <variable
             name="cryptocoin"
-            type="com.bitpanda.developertest.model.Resource.Cryptocoin" />
+            type="com.bitpanda.developertest.ui.main.list.adapter.CryptocoinDisplayable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:minHeight="@dimen/card_min_height"
+            app:cardCornerRadius="@dimen/card_radius"
             app:cardElevation="@dimen/card_elevation"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,8 +31,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/centerLineHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5" />
+
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/metalLogo"
+                    android:id="@+id/logo"
                     android:layout_width="@dimen/card_logo_size"
                     android:layout_height="@dimen/card_logo_size"
                     android:layout_marginStart="@dimen/margin_normal"
@@ -46,27 +50,41 @@
                     tools:text="Android SDK" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/metalName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:text="@{cryptocoin.name}"
-                    android:textSize="@dimen/text_big"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/metalLogo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Bitcoin" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/metalBalance"
+                    android:id="@+id/balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="@{balance + ` g`}"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@{cryptocoin.balance}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_big"
+                    app:layout_constraintBottom_toTopOf="@id/centerLineHorizontal"
                     app:layout_constraintRight_toRightOf="parent"
+                    tools:text="12.002" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/balanceInEuro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="@{cryptocoin.balanceInEuro + ` €`}"
+                    android:textSize="@dimen/text_small"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/centerLineHorizontal"
+                    tools:text="124.002 €" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:text="@{cryptocoin.name + ` (` + cryptocoin.symbol + `)` }"
+                    android:textSize="@dimen/text_big"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/logo"
+                    app:layout_constraintRight_toLeftOf="@id/balance"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="123 g" />
+                    tools:text="Bitcoin Wallet (BTC)" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

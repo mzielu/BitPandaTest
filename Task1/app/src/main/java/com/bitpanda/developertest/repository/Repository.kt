@@ -20,6 +20,10 @@ class RepositoryImpl @Inject constructor(
     override fun getWallets(vararg types: ResourceType): List<Wallet> {
         val wallets = mutableListOf<Wallet>()
 
+        if (types.contains(ResourceType.FIAT)) {
+            wallets.addAll(getFiatWallets())
+        }
+
         if (types.contains(ResourceType.CRYPTOCOIN)) {
             wallets.addAll(getCryptoWallets())
         }
@@ -28,27 +32,25 @@ class RepositoryImpl @Inject constructor(
             wallets.addAll(getMetalWallets())
         }
 
-        if (types.contains(ResourceType.FIAT)) {
-            wallets.addAll(getFiatWallets())
-        }
-
         return wallets
     }
 
     private fun getCryptoWallets(): List<Wallet> {
         return webservice.getCryptoWallets()
-            .mapToWallets(webservice.getCryptocoins(), ResourceType.CRYPTOCOIN)
+            .mapToWalletsSorted(webservice.getCryptocoins(), ResourceType.CRYPTOCOIN)
     }
 
     private fun getMetalWallets(): List<Wallet> {
-        return webservice.getMetalWallets().mapToWallets(webservice.getMetals(), ResourceType.METAL)
+        return webservice.getMetalWallets()
+            .mapToWalletsSorted(webservice.getMetals(), ResourceType.METAL)
     }
 
     private fun getFiatWallets(): List<Wallet> {
-        return webservice.getFiatWallets().mapToWallets(webservice.getFiats(), ResourceType.FIAT)
+        return webservice.getFiatWallets()
+            .mapToWalletsSorted(webservice.getFiats(), ResourceType.FIAT)
     }
 
-    private fun List<WalletDto>.mapToWallets(
+    private fun List<WalletDto>.mapToWalletsSorted(
         availableResources: List<ResourceDto>,
         resourceType: ResourceType
     ): List<Wallet> {
@@ -64,6 +66,6 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-        return wallets
+        return wallets.sortedByDescending { it.balance }
     }
 }

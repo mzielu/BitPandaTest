@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="balance"
-            type="Double" />
-
-        <variable
             name="metal"
-            type="com.bitpanda.developertest.model.Resource.Metal" />
+            type="com.bitpanda.developertest.ui.main.list.adapter.MetalDisplayable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:minHeight="@dimen/card_min_height"
+            app:cardCornerRadius="@dimen/card_radius"
             app:cardElevation="@dimen/card_elevation"
             app:cardUseCompatPadding="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
-                    android:text="@{metal.name}"
+                    android:text="@{metal.resourceName}"
                     android:textSize="@dimen/text_big"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/metalLogo"
@@ -62,7 +59,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="@{balance + ` g`}"
+                    android:text="@{metal.balance + ` g`}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_big"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
