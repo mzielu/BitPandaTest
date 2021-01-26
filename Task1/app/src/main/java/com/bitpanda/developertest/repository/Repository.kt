@@ -6,6 +6,7 @@ import com.bitpanda.developertest.model.dto.ResourceDto
 import com.bitpanda.developertest.model.dto.WalletDto
 import com.bitpanda.developertest.model.mapper.WalletMapper
 import com.bitpanda.developertest.remote.DummyWebService
+import com.bitpanda.developertest.remote.WebService
 import javax.inject.Inject
 
 interface Repository {
@@ -13,7 +14,7 @@ interface Repository {
 }
 
 class RepositoryImpl @Inject constructor(
-    private val webservice: DummyWebService,
+    private val webservice: WebService,
     private val walletMapper: WalletMapper
 ) : Repository {
 

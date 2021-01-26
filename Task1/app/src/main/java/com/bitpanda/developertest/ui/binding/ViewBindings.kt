@@ -17,6 +17,7 @@ fun setLineClickAction(view: FilterTypesView, action: (FilterType) -> Unit) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
+    //TODO THIS IS CAUSING A LEAK
     GlideToVectorYou
         .init()
         .with(view.context)
