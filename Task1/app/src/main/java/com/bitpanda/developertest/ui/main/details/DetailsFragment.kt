@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bitpanda.developertest.base.BaseFragment
 import com.bitpanda.developertest.databinding.FragmentDetailsBinding
+import com.bitpanda.developertest.getParcelableOrNull
+import com.bitpanda.developertest.model.Wallet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,8 +29,17 @@ class DetailsFragment : BaseFragment<DetailsViewModel, FragmentDetailsBinding>()
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         binding?.viewModel = detailsViewModel
+        binding?.wallet = retrieveWallet()
         binding?.lifecycleOwner = this
-
         return binding?.root
+    }
+
+    private fun retrieveWallet(): Wallet {
+        return arguments?.getParcelableOrNull(EXTRA_WALLET_KEY)
+            ?: throw IllegalAccessException("Cannot start DetailsFragment without the wallet!")
+    }
+
+    companion object {
+        const val EXTRA_WALLET_KEY = "extra_wallet_key"
     }
 }
