@@ -27,6 +27,24 @@ Each Currency has a Wallet, and you can have multiple Wallets per Currency.
 ### NICE TO HAVE 
 * You are free to implement also a nice UI 
 
+## AUTO-REVIEW
+
+If I have more time (I had only 2 free evenings for the implementation) I would:
+
+- add an initial data loading (all section should be chosen by default) probably via two-way binding
+- improve mapping dtos
+- correct package hierarchy
+- improve FilterTypesView implementation (would make it more customizable for the future)
+- improve SVG URLs fetching (by removing a GlideToVector library which is causing memory leaks and by doing it myself)
+
+I was confused with DummyData, I assumed that I should not change the retrieving data from the repository 
+(normally I would replace it with asynchronous functions such as rx Single or Observable). That is why
+I have decided to leave the project as an error safe, in case of the asynchronous functions I would handle
+potential errors. I was thinking about creating some mock interval fetching data in order to refresh data every few seconds
+and potential network state changes but it is not described in the task so I have not implemented it (and that
+is why I am passing the whole wallet object to detail view).
+I have decided to implement it as a MVVM using data binding because there is a lot of cases where UI can be
+easily nested in XML. Also, I think that short view models are ready to read for the others who have not implemented them.
 
 
 

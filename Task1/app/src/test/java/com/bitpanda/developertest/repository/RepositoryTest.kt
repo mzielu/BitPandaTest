@@ -101,7 +101,7 @@ class RepositoryTest {
     private val repository = RepositoryImpl(webService, walletMapper)
 
     @Test
-    fun xd() {
+    fun `when filter by fiat type then return only fiat wallets in sorted order`() {
         val result = repository.getWallets(ResourceType.FIAT)
 
         assertEquals(listOf(wallet8, wallet7), result)
@@ -115,7 +115,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun xd2() {
+    fun `when filter by metal type then return only metal wallets in sorted order`() {
         val result = repository.getWallets(ResourceType.METAL)
 
         assertEquals(listOf(wallet4, wallet6, wallet5), result)
@@ -130,7 +130,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun xd3() {
+    fun `when filter by crypto type then return only crypto wallets in sorted order`() {
         val result = repository.getWallets(ResourceType.CRYPTOCOIN)
 
         assertEquals(listOf(wallet3, wallet1, wallet2), result)
@@ -145,7 +145,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun xd4() {
+    fun `when filter by all types then return all wallets in sorted order`() {
         val result = repository.getWallets(*ResourceType.values())
 
         assertEquals(
