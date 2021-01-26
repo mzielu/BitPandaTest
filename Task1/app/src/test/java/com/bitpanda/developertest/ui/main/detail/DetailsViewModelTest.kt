@@ -3,14 +3,15 @@ package com.bitpanda.developertest.ui.main.detail
 import android.view.View
 import com.bitpanda.developertest.model.Resource
 import com.bitpanda.developertest.model.Wallet
+import com.bitpanda.developertest.ui.main.details.DetailsNavigator
 import com.bitpanda.developertest.ui.main.details.DetailsViewModel
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class DetailsViewModelTest {
-    private val detailsViewModel = DetailsViewModel()
+    private val detailsNavigator = mock<DetailsNavigator>()
+    private val detailsViewModel = DetailsViewModel(detailsNavigator)
 
     private val fiatResource = mock<Resource.Fiat> {
         on { precision } doReturn 2
@@ -47,6 +48,8 @@ class DetailsViewModelTest {
             assertEquals(View.VISIBLE, balanceEuroVisible(metalWallet))
             assertEquals(View.VISIBLE, balanceEuroVisible(cryptoWallet))
         }
+
+        verifyZeroInteractions(detailsNavigator)
     }
 
     @Test
@@ -56,6 +59,8 @@ class DetailsViewModelTest {
             assertEquals("234.346", convertForBalance(metalWallet))
             assertEquals("7643.1235", convertForBalance(cryptoWallet))
         }
+
+        verifyZeroInteractions(detailsNavigator)
     }
 
     @Test
@@ -65,5 +70,15 @@ class DetailsViewModelTest {
             assertEquals("2887.446 €", convertForBalanceInEuro(metalWallet))
             assertEquals("1628.9254 €", convertForBalanceInEuro(cryptoWallet))
         }
+
+        verifyZeroInteractions(detailsNavigator)
+    }
+
+    @Test
+    fun `when go back then verify appropriate function executed`() {
+        detailsViewModel.backPressed()
+
+        verify(detailsNavigator).goBack()
+        verifyNoMoreInteractions(detailsNavigator)
     }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.bitpanda.developertest.base.BaseFragment
 import com.bitpanda.developertest.databinding.FragmentDetailsBinding
@@ -15,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailsFragment : BaseFragment<DetailsViewModel, FragmentDetailsBinding>() {
 
     private val detailsViewModel: DetailsViewModel by viewModels()
+
+    private var backPressedCallback: OnBackPressedCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,19 @@ class DetailsFragment : BaseFragment<DetailsViewModel, FragmentDetailsBinding>()
         binding?.wallet = retrieveWallet()
         binding?.lifecycleOwner = this
         return binding?.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        backPressedCallback = requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.backPressed()
+        }
+    }
+
+    override fun onPause() {
+        backPressedCallback?.remove()
+        backPressedCallback = null
+        super.onPause()
     }
 
     private fun retrieveWallet(): Wallet {

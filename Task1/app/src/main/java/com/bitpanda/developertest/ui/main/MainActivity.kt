@@ -40,12 +40,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    override fun onBackPressed() {
-        //ANDROID 10 leak bug fix
-        if (isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
-            finishAfterTransition()
-        } else {
-            super.onBackPressed()
-        }
-    }
+//    override fun onBackPressed() {
+//        //ANDROID 10 leak bug fix
+//        if (isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
+//            finishAfterTransition()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 }

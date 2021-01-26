@@ -9,7 +9,13 @@ import com.bitpanda.developertest.model.Wallet
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class DetailsViewModel @ViewModelInject constructor() : BaseViewModel() {
+class DetailsViewModel @ViewModelInject constructor(
+    private val detailsNavigator: DetailsNavigator
+) : BaseViewModel() {
+    fun backPressed() {
+        detailsNavigator.goBack()
+    }
+
     fun convertForBalanceInEuro(wallet: Wallet): String {
         return with(wallet.resource) {
             price?.let {
