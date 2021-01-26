@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     @Inject
-    lateinit var navigationDispatcher: NavigatorService
+    lateinit var navigatorService: NavigatorService
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -34,7 +34,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.lifecycleOwner = this
 
         subscribe {
-            navigationDispatcher.observeNavigationEmissions().subscribeBy { command ->
+            navigatorService.observeNavigationEmissions().subscribeBy { command ->
                 command.invoke(navController)
             }
         }

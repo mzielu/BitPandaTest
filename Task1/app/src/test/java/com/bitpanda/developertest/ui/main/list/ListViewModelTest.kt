@@ -6,10 +6,7 @@ import com.bitpanda.developertest.model.Resource
 import com.bitpanda.developertest.model.ResourceType
 import com.bitpanda.developertest.model.Wallet
 import com.bitpanda.developertest.repository.Repository
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.*
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -55,9 +52,15 @@ class ListViewModelTest {
         on { getWallets(ResourceType.FIAT) } doReturn listOf(wallet1, wallet2, wallet5, wallet6)
     }
 
+    private val listNavigator = mock<ListNavigator>()
+
+    private fun createViewModel(): ListViewModel {
+        return ListViewModel(repository = repository, listNavigator = listNavigator)
+    }
+
     @Test
     fun `when get all types wallets then return appropriate list`() {
-        val listViewModel = ListViewModel(repository)
+        val listViewModel = createViewModel()
 
         assertEquals(emptyList<Wallet>(), listViewModel.wallets.value)
 
@@ -66,11 +69,12 @@ class ListViewModelTest {
         assertEquals(listOf(wallet1, wallet2, wallet4, wallet5), listViewModel.wallets.value)
         verify(repository).getWallets(*ResourceType.values())
         verifyNoMoreInteractions(repository)
+        verifyZeroInteractions(listNavigator)
     }
 
     @Test
     fun `when get fiat type wallets then return appropriate list`() {
-        val listViewModel = ListViewModel(repository)
+        val listViewModel = createViewModel()
 
         assertEquals(emptyList<Wallet>(), listViewModel.wallets.value)
 
@@ -79,11 +83,12 @@ class ListViewModelTest {
         assertEquals(listOf(wallet1, wallet2, wallet5), listViewModel.wallets.value)
         verify(repository).getWallets(ResourceType.FIAT)
         verifyNoMoreInteractions(repository)
+        verifyZeroInteractions(listNavigator)
     }
 
     @Test
     fun `when get metal type wallets then return appropriate list`() {
-        val listViewModel = ListViewModel(repository)
+        val listViewModel = createViewModel()
 
         assertEquals(emptyList<Wallet>(), listViewModel.wallets.value)
 
@@ -92,11 +97,12 @@ class ListViewModelTest {
         assertEquals(listOf(wallet4), listViewModel.wallets.value)
         verify(repository).getWallets(ResourceType.METAL)
         verifyNoMoreInteractions(repository)
+        verifyZeroInteractions(listNavigator)
     }
 
     @Test
     fun `when get crypto type wallets then return appropriate list`() {
-        val listViewModel = ListViewModel(repository)
+        val listViewModel = createViewModel()
 
         assertEquals(emptyList<Wallet>(), listViewModel.wallets.value)
 
@@ -105,5 +111,17 @@ class ListViewModelTest {
         assertEquals(listOf(wallet1, wallet2), listViewModel.wallets.value)
         verify(repository).getWallets(ResourceType.CRYPTOCOIN)
         verifyNoMoreInteractions(repository)
+        verifyZeroInteractions(listNavigator)
+    }
+
+    @Test
+    fun `when click on wallet then navigate to details`() {
+        val listViewModel = createViewModel()
+
+        listViewModel.walletClickAction(wallet1)
+
+        verify(listNavigator).goToWalletDetails(wallet1)
+        verifyNoMoreInteractions(listNavigator)
+        verifyZeroInteractions(repository)
     }
 }

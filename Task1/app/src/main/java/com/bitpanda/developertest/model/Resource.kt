@@ -10,7 +10,7 @@ sealed class Resource(
     open val symbol: String,
     open val logo: String,
     open val precision: Int,
-    open val price: Double?
+    open val price: Double? = null
 ) : Parcelable {
     @Parcelize
     data class Fiat(

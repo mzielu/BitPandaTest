@@ -108,7 +108,6 @@
                 app:layout_constraintTop_toBottomOf="@id/secondLineHorizontal"
                 tools:text="4324.234 €" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
