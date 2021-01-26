@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,15 +20,96 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/detail_logo_size"
+            android:layout_height="@dimen/detail_logo_size"
+            android:layout_margin="@dimen/margin_normal"
+            app:imageUrl="@{wallet.resource.logo}"
+            app:layout_constraintBottom_toTopOf="@id/lineHorizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/walletName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{wallet.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_very_big"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/lineHorizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/lineHorizontal"
+            tools:text="Bitcoin wallet" />
 
+        <TextView
+            android:id="@+id/walletSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:text="@{`(` + wallet.resource.symbol + `)`}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_big"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/walletName"
+            tools:text="(BTC)" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/walletSymbol">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/secondLineHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/walletBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.convertForBalance(wallet)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_huge"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/secondLineHorizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="23.123123" />
+
+            <TextView
+                android:id="@+id/walletBalanceInEuro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_half"
+                android:text="@{viewModel.convertForBalanceInEuro(wallet)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_big"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.balanceEuroVisible(wallet)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/secondLineHorizontal"
+                tools:text="4324.234 €" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

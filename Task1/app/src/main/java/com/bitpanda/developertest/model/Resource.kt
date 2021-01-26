@@ -10,6 +10,7 @@ sealed class Resource(
     open val symbol: String,
     open val logo: String,
     open val precision: Int,
+    open val price: Double?
 ) : Parcelable {
     @Parcelize
     data class Fiat(
@@ -18,7 +19,7 @@ sealed class Resource(
         override val symbol: String,
         override val logo: String,
         override val precision: Int = DEFAULT_FIAT_PRECISION
-    ) : Resource(id, name, symbol, logo, precision)
+    ) : Resource(id, name, symbol, logo, precision, null)
 
     @Parcelize
     data class Metal(
@@ -27,8 +28,8 @@ sealed class Resource(
         override val symbol: String,
         override val logo: String,
         override val precision: Int = DEFAULT_METAL_PRECISION,
-        val price: Double
-    ) : Resource(id, name, symbol, logo, precision)
+        override val price: Double
+    ) : Resource(id, name, symbol, logo, precision, price)
 
     @Parcelize
     data class Cryptocoin(
@@ -37,8 +38,8 @@ sealed class Resource(
         override val symbol: String,
         override val logo: String,
         override val precision: Int = DEFAULT_CRYPTOCOIN_PRECISION,
-        val price: Double
-    ) : Resource(id, name, symbol, logo, precision)
+        override val price: Double
+    ) : Resource(id, name, symbol, logo, precision, price)
 
     companion object {
         private const val DEFAULT_FIAT_PRECISION = 2
