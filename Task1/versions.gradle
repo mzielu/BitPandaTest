@@ -9,4 +9,6 @@ ext {
     leakcanary = '2.6'
     glidetovector = 'v2.0.0'
     mockito = '2.2.0'
+    junit = '4.13.1'
+    coretesting = '1.1.1'
 }

@@ -76,7 +76,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary"
 
     //tests
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "junit:junit:$junit"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
-    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation "android.arch.core:core-testing:$coretesting"
 }

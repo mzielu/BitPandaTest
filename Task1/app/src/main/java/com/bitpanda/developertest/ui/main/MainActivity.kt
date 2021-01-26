@@ -11,6 +11,7 @@ import com.bitpanda.developertest.service.NavigatorService
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.navigation_host as navHost
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
@@ -40,12 +41,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-//    override fun onBackPressed() {
-//        //ANDROID 10 leak bug fix
-//        if (isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
-//            finishAfterTransition()
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
+    override fun onBackPressed() {
+        //ANDROID 10 leak bug fix
+        if (navHost.childFragmentManager.backStackEntryCount == 0) {
+            finishAfterTransition()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

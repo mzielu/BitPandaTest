@@ -83,6 +83,7 @@ class FilterTypesView @JvmOverloads constructor(
     public override fun onRestoreInstanceState(state: Parcelable) {
         if (state is SavedState) {
             super.onRestoreInstanceState(state.superState)
+            selectedType = state.filterType
             getViewByType(state.filterType)?.selectViewAndUnselectOthers()
         } else {
             super.onRestoreInstanceState(state)
